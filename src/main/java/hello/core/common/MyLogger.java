@@ -10,7 +10,7 @@ import javax.annotation.PreDestroy;
 import java.util.UUID;
 
 @Component
-@Scope(value = "request")
+@Scope(value = "request", proxyMode = ScopedProxyMode.TARGET_CLASS) // HTTP request 요청 상관없이 스프링 컨테이너 생성 시 프록시 객체 생성
 public class MyLogger {
 
     private String uuid;

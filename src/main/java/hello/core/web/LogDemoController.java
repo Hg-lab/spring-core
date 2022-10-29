@@ -14,13 +14,16 @@ import javax.servlet.http.HttpServletRequest;
 public class LogDemoController {
 
     private final LogDemoService logDemoService;
-    private final ObjectProvider<MyLogger> myLoggerProvider; // 빈 생성 지연
+    private final MyLogger myLogger; // 빈 생성 지연 - 방법 : ObjectProvider, Proxy
 
     @RequestMapping("log-demo")
     @ResponseBody
     public String logDemo(HttpServletRequest request) throws InterruptedException {
-        MyLogger myLogger = myLoggerProvider.getObject();
+//        MyLogger myLogger = myLoggerProvider.getObject();
         String requestURL = request.getRequestURL().toString();
+
+        System.out.println("myLogger = " + myLogger.getClass()); // 프록시객체 생성 확인 - CGLIB
+
         myLogger.setRequestURL(requestURL);
 
         myLogger.log("controller test");
